@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Credit Score Predictor</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #0f1117;
+        --surface: #1a1d27;
+        --surface2: #22263a;
+        --border: rgba(255, 255, 255, 0.08);
+        --border2: rgba(255, 255, 255, 0.15);
+        --text: #f0f2ff;
+        --muted: #8b91b0;
+        --accent: #6c63ff;
+        --accent2: #a78bfa;
+        --good: #10b981;
+        --standard: #f59e0b;
+        --poor: #ef4444;
+        --good-bg: rgba(16, 185, 129, 0.1);
+        --standard-bg: rgba(245, 158, 11, 0.1);
+        --poor-bg: rgba(239, 68, 68, 0.1);
+      }
+
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        padding: 2rem 1rem;
+      }
+
+      .page-wrap {
+        max-width: 780px;
+        margin: 0 auto;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+      }
+
+      .badge {
+        display: inline-block;
+        font-family: "DM Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent2);
+        background: rgba(108, 99, 255, 0.12);
+        border: 1px solid rgba(108, 99, 255, 0.25);
+        border-radius: 100px;
+        padding: 4px 14px;
+        margin-bottom: 1rem;
+      }
+
+      h1 {
+        font-size: clamp(1.6rem, 4vw, 2.4rem);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        margin-bottom: 0.5rem;
+      }
+
+      h1 span {
+        color: var(--accent2);
+      }
+
+      .subtitle {
+        font-size: 14px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .section-label {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .section-label::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 1rem;
+      }
+
+      @media (max-width: 600px) {
+        .grid-2,
+        .grid-3 {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      label {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--muted);
+        letter-spacing: 0.02em;
+      }
+
+      .field-hint {
+        font-family: "DM Mono", monospace;
+        font-size: 10px;
+        color: rgba(139, 145, 176, 0.6);
+        margin-top: 2px;
+      }
+
+      input[type="number"] {
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        color: var(--text);
+        font-family: "DM Mono", monospace;
+        font-size: 14px;
+        padding: 10px 12px;
+        width: 100%;
+        transition: border-color 0.2s;
+        -moz-appearance: textfield;
+      }
+
+      input[type="number"]::-webkit-outer-spin-button,
+      input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+      }
+
+      input[type="number"]:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.15);
+      }
+
+      input[type="number"]::placeholder {
+        color: rgba(139, 145, 176, 0.4);
+      }
+
+      select {
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        color: var(--text);
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: 14px;
+        padding: 10px 12px;
+        width: 100%;
+        cursor: pointer;
+        transition: border-color 0.2s;
+      }
+
+      select:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.15);
+      }
+
+      select option {
+        background: #22263a;
+      }
+
+      .btn-predict {
+        width: 100%;
+        background: linear-gradient(135deg, #6c63ff, #a78bfa);
+        border: none;
+        border-radius: 10px;
+        color: #fff;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: 15px;
+        font-weight: 600;
+        padding: 14px;
+        cursor: pointer;
+        letter-spacing: 0.02em;
+        transition:
+          opacity 0.2s,
+          transform 0.1s;
+        margin-top: 0.5rem;
+      }
+
+      .btn-predict:hover {
+        opacity: 0.9;
+      }
+      .btn-predict:active {
+        transform: scale(0.99);
+      }
+
+      .result-card {
+        border-radius: 16px;
+        padding: 2rem;
+        text-align: center;
+        margin-bottom: 1.5rem;
+        border: 1px solid;
+        animation: fadeIn 0.4s ease;
+      }
+
+      .result-card.good {
+        background: var(--good-bg);
+        border-color: rgba(16, 185, 129, 0.25);
+      }
+      .result-card.standard {
+        background: var(--standard-bg);
+        border-color: rgba(245, 158, 11, 0.25);
+      }
+      .result-card.poor {
+        background: var(--poor-bg);
+        border-color: rgba(239, 68, 68, 0.25);
+      }
+
+      .result-emoji {
+        font-size: 3rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .result-label {
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 0.25rem;
+      }
+
+      .result-label.good {
+        color: var(--good);
+      }
+      .result-label.standard {
+        color: var(--standard);
+      }
+      .result-label.poor {
+        color: var(--poor);
+      }
+
+      .result-value {
+        font-size: 2.5rem;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+      }
+
+      .result-value.good {
+        color: var(--good);
+      }
+      .result-value.standard {
+        color: var(--standard);
+      }
+      .result-value.poor {
+        color: var(--poor);
+      }
+
+      .result-desc {
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 0.5rem;
+        line-height: 1.6;
+      }
+
+      .error-card {
+        background: rgba(239, 68, 68, 0.08);
+        border: 1px solid rgba(239, 68, 68, 0.2);
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+        font-size: 13px;
+        color: var(--poor);
+        margin-bottom: 1.5rem;
+      }
+
+      footer {
+        text-align: center;
+        font-size: 12px;
+        color: rgba(139, 145, 176, 0.5);
+        margin-top: 2rem;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-wrap">
+      <header>
+        <div class="badge">Kelompok 2 &mdash; Project Expo</div>
+        <h1>Credit Score <span>Predictor</span></h1>
+        <p class="subtitle">
+          Masukkan data keuangan untuk memprediksi kelayakan kredit menggunakan
+          Random Forest
+        </p>
+      </header>
+
+      {% if result %}
+      <div class="result-card {{ result|lower }}">
+        <div class="result-emoji">
+          {% if result == "Good" %}✅{% elif result == "Standard" %}⚠️{% else
+          %}❌{% endif %}
+        </div>
+        <div class="result-label {{ result|lower }}">Hasil Prediksi</div>
+        <div class="result-value {{ result|lower }}">{{ result }}</div>
+        <div class="result-desc">
+          {% if result == "Good" %}Profil keuangan sangat baik. Layak
+          mendapatkan kredit dengan bunga rendah. {% elif result == "Standard"
+          %}Profil keuangan cukup. Kredit dapat disetujui dengan syarat
+          tertentu. {% else %}Profil keuangan berisiko tinggi. Perlu perbaikan
+          sebelum mengajukan kredit.{% endif %}
+        </div>
+      </div>
+      {% endif %} {% if error %}
+      <div class="error-card">⚠️ Error: {{ error }}</div>
+      {% endif %}
+
+      <form method="POST" action="/predict/">
+        {% csrf_token %}
+
+        <div class="card">
+          <div class="section-label">Informasi Utang & Kredit</div>
+          <div class="grid-2">
+            <div class="field">
+              <label>Outstanding Debt (USD)</label>
+              <input
+                type="number"
+                name="outstanding_debt"
+                placeholder="cth: 500"
+                step="any"
+                required
+                value="{{ request.POST.outstanding_debt }}"
+              />
+              <span class="field-hint">Total hutang yang belum terbayar</span>
+            </div>
+            <div class="field">
+              <label>Interest Rate (%)</label>
+              <input
+                type="number"
+                name="interest_rate"
+                placeholder="cth: 8"
+                step="any"
+                required
+                value="{{ request.POST.interest_rate }}"
+              />
+              <span class="field-hint">Suku bunga pinjaman saat ini</span>
+            </div>
+            <div class="field">
+              <label>Delay from Due Date (hari)</label>
+              <input
+                type="number"
+                name="delay_from_due_date"
+                placeholder="cth: 5"
+                step="any"
+                required
+                value="{{ request.POST.delay_from_due_date }}"
+              />
+              <span class="field-hint">Rata-rata keterlambatan pembayaran</span>
+            </div>
+            <div class="field">
+              <label>Changed Credit Limit</label>
+              <input
+                type="number"
+                name="changed_credit_limit"
+                placeholder="cth: 5"
+                step="any"
+                required
+                value="{{ request.POST.changed_credit_limit }}"
+              />
+              <span class="field-hint">Perubahan limit kredit</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-label">Profil Kartu & Pinjaman</div>
+          <div class="grid-3">
+            <div class="field">
+              <label>Credit Mix</label>
+              <select name="credit_mix" required>
+                <option value="">-- Pilih --</option>
+                <option
+                  value="1"
+                  {%
+                  if
+                  request.POST.credit_mix=""
+                  ="1"
+                  %}selected{%
+                  endif
+                  %}
+                >
+                  Bad (1)
+                </option>
+                <option
+                  value="2"
+                  {%
+                  if
+                  request.POST.credit_mix=""
+                  ="2"
+                  %}selected{%
+                  endif
+                  %}
+                >
+                  Standard (2)
+                </option>
+                <option
+                  value="3"
+                  {%
+                  if
+                  request.POST.credit_mix=""
+                  ="3"
+                  %}selected{%
+                  endif
+                  %}
+                >
+                  Good (3)
+                </option>
+              </select>
+              <span class="field-hint">Ragam jenis kredit</span>
+            </div>
+            <div class="field">
+              <label>Num Credit Inquiries</label>
+              <input
+                type="number"
+                name="num_credit_inquiries"
+                placeholder="cth: 3"
+                step="any"
+                required
+                value="{{ request.POST.num_credit_inquiries }}"
+              />
+              <span class="field-hint">Jumlah pengecekan kredit</span>
+            </div>
+            <div class="field">
+              <label>Num Credit Card</label>
+              <input
+                type="number"
+                name="num_credit_card"
+                placeholder="cth: 3"
+                step="any"
+                required
+                value="{{ request.POST.num_credit_card }}"
+              />
+              <span class="field-hint">Jumlah kartu kredit aktif</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-label">Informasi Keuangan</div>
+          <div class="grid-2">
+            <div class="field">
+              <label>Annual Income (USD)</label>
+              <input
+                type="number"
+                name="annual_income"
+                placeholder="cth: 45000"
+                step="any"
+                required
+                value="{{ request.POST.annual_income }}"
+              />
+              <span class="field-hint">Pendapatan tahunan</span>
+            </div>
+            <div class="field">
+              <label>Total EMI per Month (USD)</label>
+              <input
+                type="number"
+                name="total_emi_per_month"
+                placeholder="cth: 150"
+                step="any"
+                required
+                value="{{ request.POST.total_emi_per_month }}"
+              />
+              <span class="field-hint">Total cicilan per bulan</span>
+            </div>
+            <div class="field" style="grid-column: 1 / -1">
+              <label>Credit Utilization Ratio (%)</label>
+              <input
+                type="number"
+                name="credit_utilization_ratio"
+                placeholder="cth: 30"
+                step="any"
+                required
+                value="{{ request.POST.credit_utilization_ratio }}"
+              />
+              <span class="field-hint"
+                >Persentase limit kredit yang digunakan</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-predict">
+          🔍 Prediksi Credit Score
+        </button>
+      </form>
+
+      <footer>
+        Random Forest Classifier &mdash; Trained on Credit Score Dataset &mdash;
+        Kelompok 2
+      </footer>
+    </div>
+  </body>
+</html>

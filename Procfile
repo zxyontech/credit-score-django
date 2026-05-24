@@ -1,0 +1,1 @@
+web: gunicorn credit_score_django.wsgi --bind 0.0.0.0:$PORT

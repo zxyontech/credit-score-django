@@ -355,6 +355,55 @@
           {% endif %}
         </div>
       </div>
+      <div style="margin-top:1.5rem; text-align:left;">
+          <div style="font-size:11px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-bottom:0.75rem;">Ringkasan Input</div>
+          <table style="width:100%; font-size:13px; border-collapse:collapse;">
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:8px 0; color:var(--muted);">Outstanding Debt</td>
+              <td style="padding:8px 0; text-align:right; font-family:'DM Mono',monospace;">{{ request.POST.outstanding_debt }}</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:8px 0; color:var(--muted);">Interest Rate</td>
+              <td style="padding:8px 0; text-align:right; font-family:'DM Mono',monospace;">{{ request.POST.interest_rate }}%</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:8px 0; color:var(--muted);">Delay from Due Date</td>
+              <td style="padding:8px 0; text-align:right; font-family:'DM Mono',monospace;">{{ request.POST.delay_from_due_date }} hari</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:8px 0; color:var(--muted);">Changed Credit Limit</td>
+              <td style="padding:8px 0; text-align:right; font-family:'DM Mono',monospace;">{{ request.POST.changed_credit_limit }}</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:8px 0; color:var(--muted);">Credit Mix</td>
+              <td style="padding:8px 0; text-align:right; font-family:'DM Mono',monospace;">
+                {% if request.POST.credit_mix == "0" %}Bad
+                {% elif request.POST.credit_mix == "1" %}Good
+                {% else %}Standard{% endif %}
+              </td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:8px 0; color:var(--muted);">Num Credit Inquiries</td>
+              <td style="padding:8px 0; text-align:right; font-family:'DM Mono',monospace;">{{ request.POST.num_credit_inquiries }}</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:8px 0; color:var(--muted);">Num Credit Card</td>
+              <td style="padding:8px 0; text-align:right; font-family:'DM Mono',monospace;">{{ request.POST.num_credit_card }}</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:8px 0; color:var(--muted);">Annual Income</td>
+              <td style="padding:8px 0; text-align:right; font-family:'DM Mono',monospace;">{{ request.POST.annual_income }}</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:8px 0; color:var(--muted);">Total EMI per Month</td>
+              <td style="padding:8px 0; text-align:right; font-family:'DM Mono',monospace;">{{ request.POST.total_emi_per_month }}</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 0; color:var(--muted);">Credit Utilization Ratio</td>
+              <td style="padding:8px 0; text-align:right; font-family:'DM Mono',monospace;">{{ request.POST.credit_utilization_ratio }}%</td>
+            </tr>
+          </table>
+        </div>
       {% endif %} {% if error %}
       <div class="error-card">⚠️ Error: {{ error }}</div>
       {% endif %}

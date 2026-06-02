@@ -338,17 +338,21 @@
       {% if result %}
       <div class="result-card {{ result|lower }}">
         <div class="result-emoji">
-          {% if result == "Good" %}✅{% elif result == "Standard" %}⚠️{% else
-          %}❌{% endif %}
+          {% if result == "Good" %}✅
+          {% elif result == "Standard" %}⚠️
+          {% else %}❌
+          {% endif %}
         </div>
         <div class="result-label {{ result|lower }}">Hasil Prediksi</div>
         <div class="result-value {{ result|lower }}">{{ result }}</div>
         <div class="result-desc">
-          {% if result == "Good" %}Profil keuangan sangat baik. Layak
-          mendapatkan kredit dengan bunga rendah. {% elif result == "Standard"
-          %}Profil keuangan cukup. Kredit dapat disetujui dengan syarat
-          tertentu. {% else %}Profil keuangan berisiko tinggi. Perlu perbaikan
-          sebelum mengajukan kredit.{% endif %}
+          {% if result == "Good" %}
+          Profil keuangan sangat baik. Layak mendapatkan kredit dengan bunga rendah.
+          {% elif result == "Standard" %}
+          Profil keuangan cukup. Kredit dapat disetujui dengan syarat tertentu.
+          {% else %}
+          Profil keuangan berisiko tinggi. Perlu perbaikan sebelum mengajukan kredit.
+          {% endif %}
         </div>
       </div>
       {% endif %} {% if error %}

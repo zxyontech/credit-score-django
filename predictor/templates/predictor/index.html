@@ -151,7 +151,7 @@
         margin-top: 2px;
       }
 
-      input[type="number"] {
+      input[type="text"] {
         background: var(--surface2);
         border: 1px solid var(--border);
         border-radius: 8px;
@@ -164,18 +164,18 @@
         -moz-appearance: textfield;
       }
 
-      input[type="number"]::-webkit-outer-spin-button,
-      input[type="number"]::-webkit-inner-spin-button {
+      input[type="text"]::-webkit-outer-spin-button,
+      input[type="text"]::-webkit-inner-spin-button {
         -webkit-appearance: none;
       }
 
-      input[type="number"]:focus {
+      input[type="text"]:focus {
         outline: none;
         border-color: var(--accent);
         box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.15);
       }
 
-      input[type="number"]::placeholder {
+      input[type="text"]::placeholder {
         color: rgba(139, 145, 176, 0.4);
       }
 
@@ -368,7 +368,7 @@
             <div class="field">
               <label>Outstanding Debt (USD)</label>
               <input
-                type="number"
+                type="text"
                 name="outstanding_debt"
                 placeholder="cth: 500"
                 step="any"
@@ -380,7 +380,7 @@
             <div class="field">
               <label>Interest Rate (%)</label>
               <input
-                type="number"
+                type="text"
                 name="interest_rate"
                 placeholder="cth: 8"
                 step="any"
@@ -392,7 +392,7 @@
             <div class="field">
               <label>Delay from Due Date (hari)</label>
               <input
-                type="number"
+                type="text"
                 name="delay_from_due_date"
                 placeholder="cth: 5"
                 step="any"
@@ -404,7 +404,7 @@
             <div class="field">
               <label>Changed Credit Limit</label>
               <input
-                type="number"
+                type="text"
                 name="changed_credit_limit"
                 placeholder="cth: 5"
                 step="any"
@@ -432,7 +432,7 @@
             <div class="field">
               <label>Num Credit Inquiries</label>
               <input
-                type="number"
+                type="text"
                 name="num_credit_inquiries"
                 placeholder="cth: 3"
                 step="any"
@@ -444,7 +444,7 @@
             <div class="field">
               <label>Num Credit Card</label>
               <input
-                type="number"
+                type="text"
                 name="num_credit_card"
                 placeholder="cth: 3"
                 step="any"
@@ -462,7 +462,7 @@
             <div class="field">
               <label>Annual Income (USD)</label>
               <input
-                type="number"
+                type="text"
                 name="annual_income"
                 placeholder="cth: 45000"
                 step="any"
@@ -474,7 +474,7 @@
             <div class="field">
               <label>Total EMI per Month (USD)</label>
               <input
-                type="number"
+                type="text"
                 name="total_emi_per_month"
                 placeholder="cth: 150"
                 step="any"
@@ -486,7 +486,7 @@
             <div class="field" style="grid-column: 1 / -1">
               <label>Credit Utilization Ratio (%)</label>
               <input
-                type="number"
+                type="text"
                 name="credit_utilization_ratio"
                 placeholder="cth: 30"
                 step="any"

@@ -408,6 +408,7 @@
       <div class="error-card">⚠️ Error: {{ error }}</div>
       {% endif %}
 
+      {% if not result %}
       <form method="POST" action="/predict/">
         {% csrf_token %}
 
@@ -553,6 +554,9 @@
           🔍 Prediksi Credit Score
         </button>
       </form>
+      {% else %}
+      <a href="/" style="display:block; width:100%; text-align:center; background:var(--surface); border:1px solid var(--border); border-radius:10px; color:var(--accent2); font-size:15px; font-weight:600; padding:14px; text-decoration:none; margin-top:1rem;">↩ Prediksi Baru</a>
+      {% endif %}
 
       <footer>
         Random Forest Classifier &mdash; Trained on Credit Score Dataset &mdash;

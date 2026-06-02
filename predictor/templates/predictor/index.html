@@ -423,9 +423,9 @@
               <label>Credit Mix</label>
               <select name="credit_mix" required>
                 <option value="">-- Pilih --</option>
-                <option value="0">Bad</option>
-                <option value="1">Good</option>
-                <option value="2">Standard</option>
+                <option value="0" {% if request.POST.credit_mix == "0" %}selected{% endif %}>Bad</option>
+                <option value="1" {% if request.POST.credit_mix == "1" %}selected{% endif %}>Good</option>
+                <option value="2" {% if request.POST.credit_mix == "2" %}selected{% endif %}>Standard</option>
               </select>
               <span class="field-hint">Ragam jenis kredit</span>
             </div>
